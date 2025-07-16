@@ -149,6 +149,53 @@ Use [Video.js](https://videojs.com/) or [hls.js](https://github.com/video-dev/hl
 
 Your stream will adapt based on viewer bandwidth. 📶
 
+## 📽️ Streaming HLS Video from S3
+
+This project streams an HLS video (`.m3u8` and `.ts` segments) using a React frontend. The HLS playlist can be hosted on AWS S3 or tested locally using a local server.
+
+---
+
+### 🧾 Uploading HLS Video Manually to S3 (Optional)
+
+To manually upload your HLS video files to S3:
+
+1. **Prepare the files**:
+   - You should have a `.m3u8` playlist file and associated `.ts` segment files.
+   - Example:
+     ```
+     /output/
+     ├── playlist.m3u8
+     ├── segment0.ts
+     ├── segment1.ts
+     └── segment2.ts
+     ```
+
+2. **Create an S3 bucket (if not already created)**:
+   - Go to the [AWS S3 Console](https://s3.console.aws.amazon.com/s3/home).
+   - Click "Create bucket", choose a name, and configure permissions.
+
+3. **Upload files**:
+   - Navigate to your bucket > "Upload".
+   - Upload the entire `/output/` folder contents.
+
+4. **Make files public (optional for quick testing)**:
+   - Select each file > "Actions" > "Make public"  
+     _(Alternatively, use signed URLs or configure S3 bucket policy.)_
+
+5. **Set CORS policy (to allow cross-origin access)**:
+   In your bucket > Permissions > CORS configuration, paste:
+
+   ```xml
+   <CORSConfiguration>
+     <CORSRule>
+       <AllowedOrigin>*</AllowedOrigin>
+       <AllowedMethod>GET</AllowedMethod>
+       <AllowedHeader>*</AllowedHeader>
+     </CORSRule>
+   </CORSConfiguration>
+
+6. **Get Signed or Public URL to Stream the Video**
+
 ---
 
 ## ✅ Requirements
